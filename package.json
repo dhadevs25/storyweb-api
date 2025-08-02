@@ -1,0 +1,60 @@
+{
+  "name": "node_project_be",
+  "version": "1.0.0",
+  "description": "Backend API for online story reading website.",
+  "scripts": {
+    "build-ts": "tsc",
+    "build": "npm run build-ts",
+    "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
+    "serve": "node dist/server.js",
+    "start": "npm run serve",
+    "watch-ts": "tsc -w",
+    "dev": "nodemon --watch src --exec ts-node src/server.ts"
+  },
+  "author": "DHADEV",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/async": "^3.2.24",
+    "@types/bluebird": "^3.5.42",
+    "@types/body-parser": "^1.19.6",
+    "@types/bson": "^4.0.5",
+    "@types/chai": "^5.2.2",
+    "@types/compression": "^1.8.1",
+    "@types/cors": "^2.8.19",
+    "@types/errorhandler": "^1.5.3",
+    "@types/eslint": "^9.6.1",
+    "@types/express": "^5.0.3",
+    "@types/express-session": "^1.18.2",
+    "@types/mongodb": "^4.0.6",
+    "@types/mongoose": "^5.11.96",
+    "@types/node": "^24.1.0",
+    "@types/request": "^2.48.13",
+    "@types/request-promise": "^4.1.51",
+    "@types/winston": "^2.4.4",
+    "@typescript-eslint/eslint-plugin": "^8.38.0",
+    "@typescript-eslint/parser": "^8.38.0",
+    "eslint": "^9.32.0",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "async": "^3.2.6",
+    "bluebird": "^3.7.2",
+    "body-parser": "^2.2.0",
+    "compression": "^1.8.1",
+    "connect-mongo": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "errorhandler": "^1.5.1",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "fs": "^0.0.1-security",
+    "helmet": "^8.1.0",
+    "mongoose": "^8.17.0",
+    "winston": "^3.17.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
