@@ -12,6 +12,12 @@ on:
 env:
   NODE_VERSION: '18'
 
+# Grant GITHUB_TOKEN permissions
+permissions:
+  contents: write      # Create releases
+  packages: write      # Push to GitHub Container Registry
+  actions: read        # Read workflow information
+
 jobs:
   deploy-staging:
     name: 🚧 Deploy to Staging
@@ -69,12 +75,10 @@ jobs:
           echo "::set-output name=tag::$TAG_NAME"
           
       - name: 📋 Create GitHub release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ env.TAG_NAME }}
-          release_name: Release ${{ env.TAG_NAME }}
+          name: Release ${{ env.TAG_NAME }}
           draft: false
           prerelease: false
           body: |
@@ -87,6 +91,7 @@ jobs:
             - Build Date: $(date +'%Y-%m-%d %H:%M:%S')
             - Commit: ${{ github.sha }}
             - Branch: ${{ github.ref_name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
             
       - name: 🚀 Deploy to production
         run: |
