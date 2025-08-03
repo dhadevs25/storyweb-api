@@ -36,7 +36,7 @@ if (!process.env.SESSION_SECRET) {
     console.warn("⚠️  SESSION_SECRET not set, using default (not secure for production!)");
     process.env.SESSION_SECRET = "default-session-secret-change-in-production";
 }
-
+instanceMongoDb;
 // Security middleware
 app.use(helmet());
 app.use(cors());
