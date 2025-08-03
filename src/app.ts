@@ -5,8 +5,12 @@ import mongoose from "mongoose";
 import bluebird from "bluebird";
 import cors from "cors";
 import helmet from "helmet";
+import dotenv from "dotenv";
 import instanceMongoDb from "./configs/database";
 import { configureRoutes } from "./routes";
+
+// Load environment variables
+dotenv.config();
 
 const app  = express();
 
@@ -15,6 +19,12 @@ mongoose.Promise = bluebird;
 // Database connection is handled in the database config file
 
 app.set("port", process.env.PORT || 3000);
+
+// Validate required environment variables
+if (!process.env.SESSION_SECRET) {
+    console.warn("⚠️  SESSION_SECRET not set, using default (not secure for production!)");
+    process.env.SESSION_SECRET = "default-session-secret-change-in-production";
+}
 
 // Security middleware
 app.use(helmet());
