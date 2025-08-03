@@ -11,12 +11,17 @@ import { configureRoutes } from "./routes";
 
 // Debug environment detection
 console.log(`🔍 NODE_ENV detected: "${process.env.NODE_ENV}"`);
-console.log(`🔍 Available environment variables: ${Object.keys(process.env).filter(key => key.includes("NODE")).join(", ")}`);
+console.log(`🔍 SESSION_SECRET exists: ${!!process.env.SESSION_SECRET}`);
+console.log(`🔍 PORT detected: ${process.env.PORT}`);
 
-// Load environment variables based on NODE_ENV
-const envFile = process.env.NODE_ENV === "production" ? ".env.production" : ".env.development";
-console.log(`📁 Loading environment file: ${envFile}`);
-dotenv.config({ path: envFile });
+// Only load dotenv files in development/local environment
+// Railway will provide environment variables directly
+if (process.env.NODE_ENV !== "production" && !process.env.RAILWAY_ENVIRONMENT) {
+    console.log("📁 Loading .env.development for local development");
+    dotenv.config({ path: ".env.development" });
+} else {
+    console.log("🚀 Running in production - using Railway environment variables");
+}
 
 const app  = express();
 
