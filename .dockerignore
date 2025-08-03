@@ -63,7 +63,7 @@ docker-compose.yml
 docker-compose.*.yml
 
 # Development files
-src
-tsconfig.json
+# src  # Don't ignore src - needed for building
+# tsconfig.json  # Don't ignore tsconfig - needed for TypeScript compilation
 .husky
 commitlint.config.js
