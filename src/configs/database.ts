@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
 import logger from "../utils/logger";
-import { MONGODB_URI } from "./secrets";
+import config from "./secrets";
+
 
 class Database {
     private static instance: Database;
-    private isConnected: boolean = false;
+    private isConnected = false;
 
     constructor() {
         this.setupEventListeners();
@@ -32,9 +33,9 @@ class Database {
         process.on("SIGTERM", this.gracefulShutdown.bind(this));
     }
 
-    async connect(type = "mongodb"): Promise<void> {
+    async connect(): Promise<void> {
         try {
-            if (!MONGODB_URI) {
+            if (!config.database.uri) {
                 throw new Error("MONGODB_URI is not defined");
             }
 
@@ -58,8 +59,8 @@ class Database {
                 mongoose.set("debug", true);
             }
 
-            await mongoose.connect(MONGODB_URI, options);
-            
+            await mongoose.connect(config.database.uri, options);
+
         } catch (error) {
             logger.error("Failed to connect to MongoDB:", error);
             throw error;

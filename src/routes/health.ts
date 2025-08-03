@@ -1,11 +1,11 @@
 import { Router, Request, Response } from "express";
-import instanceMongoDb from "../configs/database";
+import mongoose from "mongoose";
 
 const router = Router();
 
 // Health check endpoint
 router.get("/", (req: Request, res: Response) => {
-    const dbStatus = instanceMongoDb.getConnectionStatus();
+    const dbStatus = mongoose.connection.readyState === 1; // 1 = connected
     
     res.status(dbStatus ? 200 : 503).json({ 
         status: dbStatus ? "OK" : "SERVICE_UNAVAILABLE",
@@ -19,7 +19,7 @@ router.get("/", (req: Request, res: Response) => {
 
 // Detailed health check
 router.get("/detailed", (req: Request, res: Response) => {
-    const dbStatus = instanceMongoDb.getConnectionStatus();
+    const dbStatus = mongoose.connection.readyState === 1;
     
     res.status(dbStatus ? 200 : 503).json({ 
         status: dbStatus ? "OK" : "SERVICE_UNAVAILABLE",

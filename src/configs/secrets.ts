@@ -2,31 +2,75 @@ import logger from "../utils/logger";
 import dotenv from "dotenv";
 import fs from "fs";
 
+const environment = process.env.NODE_ENV || "development";
 
-if (fs.existsSync(".env")) {
-    logger.debug("Using .env file to supply config environment variables");
-    dotenv.config({ path: ".env" });
+// Load environment files dựa vào NODE_ENV
+let envFile: string;
+
+if (environment === "production") {
+    envFile = ".env.production";
+} else if (environment === "development") {
+    envFile = ".env.development";
 } else {
-    logger.debug("Using .env.development file to supply config environment variables");
-    dotenv.config({ path: ".env.development" });
+    envFile = `.env.${environment}`;
 }
 
-export const ENVIRONMENT = process.env.NODE_ENV;
-const prod = ENVIRONMENT === "production"; 
-
-export const SESSION_SECRET = process.env["SESSION_SECRET"];
-export const MONGODB_URI = prod ? process.env["MONGODB_URI"] : process.env["MONGODB_URI_LOCAL"];
-
-if (!SESSION_SECRET) {
-    logger.error("No client secret. Set SESSION_SECRET environment variable.");
+// Kiểm tra file tồn tại
+if (fs.existsSync(envFile)) {
+    logger.debug(`Using ${envFile} file to supply config environment variables`);
+    dotenv.config({ path: envFile });
+} else {
+    logger.error(`Environment file ${envFile} not found for ${environment} environment`);
     process.exit(1);
 }
 
-if (!MONGODB_URI) {
-    if (prod) {
-        logger.error("No mongo connection string. Set MONGODB_URI environment variable.");
-    } else {
-        logger.error("No mongo connection string. Set MONGODB_URI_LOCAL environment variable.");
+interface Config {
+    app: {
+        environment: "development" | "production" | "test";
+        port: number;
+    };
+    database: {
+        uri: string;
+    };
+    security: {
+        sessionSecret: string;
+    };
+}
+
+function validateConfig(): Config {
+    const config: Config = {
+        app: {
+            environment: environment as Config["app"]["environment"],
+            port: parseInt(process.env.PORT || "3000", 10)
+        },
+        database: {
+            uri: process.env.MONGODB_URI as string
+        },
+        security: {
+            sessionSecret: process.env.SESSION_SECRET as string
+        }
+    };
+
+    // Validate required fields
+    const requiredFields = [
+        { path: "database.uri", value: config.database.uri, envVar: "MONGODB_URI" },
+        { path: "security.sessionSecret", value: config.security.sessionSecret, envVar: "SESSION_SECRET" }
+    ];
+    
+    for (const field of requiredFields) {
+        if (!field.value) {
+            logger.error(`Missing required environment variable: ${field.envVar}`);
+            process.exit(1);
+        }
     }
-    process.exit(1);
+
+    logger.info(`Environment: ${config.app.environment}`);
+    logger.debug(`Port: ${config.app.port}`);
+    logger.debug(`Database configured: ${config.database.uri ? "✓" : "✗"}`);
+
+    return config;
 }
+
+const config = validateConfig();
+
+export default config;
