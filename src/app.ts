@@ -9,8 +9,9 @@ import dotenv from "dotenv";
 import instanceMongoDb from "./configs/database";
 import { configureRoutes } from "./routes";
 
-// Load environment variables
-dotenv.config();
+// Load environment variables based on NODE_ENV
+const envFile = process.env.NODE_ENV === "production" ? ".env.production" : ".env.development";
+dotenv.config({ path: envFile });
 
 const app  = express();
 
