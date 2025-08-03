@@ -3,6 +3,11 @@ node_js:
   - "22"
   - "20"
 
+branches:
+  only:
+    - main
+    - master
+
 cache:
   directories:
     - node_modules
@@ -12,4 +17,5 @@ install:
 
 script:
   - npm run lint
-  - npm test
+  - npm run build
+  # Tạm thời bỏ npm test vì chưa có tests
