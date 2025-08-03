@@ -10,7 +10,7 @@
     "start": "npm run serve",
     "watch-ts": "tsc -w",
     "dev": "nodemon --watch src --exec ts-node src/server.ts",
-    "prepare": "husky",
+    "prepare": "husky || true",
     "test": "echo \"No tests specified\" && exit 0"
   },
   "author": "DHADEV",
