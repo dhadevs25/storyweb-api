@@ -46,15 +46,13 @@ jobs:
         
       - name: 🏗️ Deploy to staging
         run: |
-          echo "🚧 Deploying to staging environment..."
-          echo "📦 Application built successfully"
-          echo "🌐 Staging URL: https://staging.your-domain.com"
-          # Add your staging deployment commands here
+          echo "🚧 Railway auto-deploys from GitHub directly"
+          echo "✅ No manual deployment needed"
           
       - name: 📢 Staging notification
         run: |
-          echo "✅ Staging deployment completed!"
-          echo "🔗 Staging URL: https://staging.your-domain.com"
+          echo "✅ Railway staging deployment completed!"
+          echo "🔗 Staging URL: https://storyweb-api-staging.up.railway.app"
 
   deploy-production:
     name: 🚀 Deploy to Production
@@ -95,15 +93,14 @@ jobs:
             
       - name: 🚀 Deploy to production
         run: |
-          echo "🚀 Deploying to production environment..."
-          echo "🏷️ Release tag: ${{ env.TAG_NAME }}"
-          # Add your production deployment commands here
+          echo "🚧 Railway auto-deploys from GitHub directly"
+          echo "✅ Production environment managed by Railway"
           
       - name: 📢 Deployment notification
         run: |
-          echo "🎉 Production deployment completed!"
+          echo "🎉 Railway production deployment completed!"
           echo "🏷️ Release tag: ${{ env.TAG_NAME }}"
-          echo "🔗 Production URL: https://your-domain.com"
+          echo "🔗 Production URL: https://storyweb-api-prod.up.railway.app"
 
   docker-build:
     name: 🐳 Build Docker Image

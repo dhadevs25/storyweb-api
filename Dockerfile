@@ -44,8 +44,8 @@ COPY --chown=nodejs:nodejs package.json ./
 # Switch to non-root user
 USER nodejs
 
-# Expose port
-EXPOSE 3000
+# Expose port (Heroku sets PORT environment variable)
+EXPOSE ${PORT:-3000}
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
