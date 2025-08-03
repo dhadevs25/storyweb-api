@@ -9,8 +9,13 @@ import dotenv from "dotenv";
 import instanceMongoDb from "./configs/database";
 import { configureRoutes } from "./routes";
 
+// Debug environment detection
+console.log(`🔍 NODE_ENV detected: "${process.env.NODE_ENV}"`);
+console.log(`🔍 Available environment variables: ${Object.keys(process.env).filter(key => key.includes("NODE")).join(", ")}`);
+
 // Load environment variables based on NODE_ENV
 const envFile = process.env.NODE_ENV === "production" ? ".env.production" : ".env.development";
+console.log(`📁 Loading environment file: ${envFile}`);
 dotenv.config({ path: envFile });
 
 const app  = express();
