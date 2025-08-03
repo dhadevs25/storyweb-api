@@ -1,0 +1,29 @@
+# <type>(<scope>): <subject>
+#
+# <body>
+#
+# <footer>
+
+# --- COMMIT FORMAT ---
+# feat(scope): add new feature
+# fix(scope): fix bug in something
+# docs(scope): update documentation
+# style(scope): formatting, missing semi colons, etc
+# refactor(scope): refactoring code
+# test(scope): add missing tests
+# chore(scope): update grunt tasks etc
+
+# --- EXAMPLES ---
+# feat(auth): add JWT authentication
+# fix(database): resolve connection timeout issue
+# docs(readme): update installation instructions
+# style(lint): fix eslint warnings
+# refactor(routes): extract middleware to separate file
+# test(api): add unit tests for user endpoints
+# chore(deps): update dependencies to latest versions
+
+# --- RULES ---
+# - Use lowercase for type and scope
+# - Subject should be < 50 chars, no period at end
+# - Body should explain what and why, not how
+# - Use imperative mood: "add" not "added" or "adds"

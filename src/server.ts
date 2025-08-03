@@ -1,11 +1,11 @@
-import errorHandler from 'errorhandler';
-import app from './app';
-import logger from './utils/logger';
+import errorHandler from "errorhandler";
+import app from "./app";
+import logger from "./utils/logger";
 
 /**
  * Error Handler. Provides full stack - use only in development
  */
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === "development") {
     app.use(errorHandler());
 }
 

@@ -1,0 +1,14 @@
+services:
+  db:
+    image: mongo:latest
+    container_name: my_mongo_db
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: "Dh@201200"
+      MONGO_INITDB_DATABASE: story_db
+    volumes:
+      - ./data/db:/data/db
+      - ./data/configdb:/data/configdb
+      - ./logs:/var/log/mongodb

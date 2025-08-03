@@ -9,11 +9,15 @@
     "serve": "node dist/server.js",
     "start": "npm run serve",
     "watch-ts": "tsc -w",
-    "dev": "nodemon --watch src --exec ts-node src/server.ts"
+    "dev": "nodemon --watch src --exec ts-node src/server.ts",
+    "prepare": "husky",
+    "test": "echo \"No tests specified\" && exit 0"
   },
   "author": "DHADEV",
   "license": "ISC",
   "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@types/async": "^3.2.24",
     "@types/bluebird": "^3.5.42",
     "@types/body-parser": "^1.19.6",
@@ -34,6 +38,7 @@
     "@typescript-eslint/eslint-plugin": "^8.38.0",
     "@typescript-eslint/parser": "^8.38.0",
     "eslint": "^9.32.0",
+    "husky": "^9.1.7",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"

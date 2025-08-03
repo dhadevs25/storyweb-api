@@ -1,6 +1,6 @@
-import logger from "./logger";
-import dotenv from 'dotenv';
-import fs from 'fs'
+import logger from "../utils/logger";
+import dotenv from "dotenv";
+import fs from "fs";
 
 
 if (fs.existsSync(".env")) {
